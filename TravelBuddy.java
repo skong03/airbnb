@@ -50,11 +50,11 @@ public class TravelBuddy {
       return null;
     }
   
-  private void printCollection(Collection<String> c){
-    for(String s: c){
-      System.out.print(s+", ");
-    }
-  }
+//   private void printCollection(Collection<String> c){
+//     for(String s: c){
+//       System.out.print(s+", ");
+//     }
+//   }
 }
 
 class Buddy implements Comparable<Buddy>{
