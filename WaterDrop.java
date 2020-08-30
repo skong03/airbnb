@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.*;
-
 class Solution7 {
   public static void main(String[] args) {
     WaterDrop wd=new WaterDrop();
