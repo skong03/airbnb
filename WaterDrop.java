@@ -1,9 +1,11 @@
+
+
 class Solution7 {
   public static void main(String[] args) {
     WaterDrop wd=new WaterDrop();
-    int[] height= new int[]{5, 4, 2, 1, 2, 3, 2, 1, 0, 1, 2, 4};
+    int[] height= new int[]{1,2,0,2,1, 2};
     for(int i=0;i<30;i++){
-      wd.addWater(height, i, 5);
+      wd.addWater(height, i, 1);
       wd.print();
     }
     
@@ -18,28 +20,36 @@ class WaterDrop{
     waters =new int[height.length];
     for(int i=0;i<water; i++){
       int left=location-1;
-      while(left>=0&& height[left]+ waters[left]<= height[location]+waters[location] 
-            && left-1>=0 && height[left-1]+waters[left-1]<=heights[left]+waters[left]){
+      while(left>=0 && getHeight(left)<=getHeight(location) 
+      && left-1>=0 && getHeight(left-1)<=getHeight(left)){
         left--;
       }
-      if(height[left]+waters[left]<height[location]+waters[location]){
-        waters[left]=waters[left]+1;
+
+      if(left>0 && getHeight(left)<getHeight(location)){
+        waters[left]++;
         continue;
       }
-      
+
       int right=location+1;
-      while(right+1<height.length && height[right]+waters[right]<=height[location]+waters[location] && height[right]+waters[right] >=height[right+1]+waters[right+1]){
+      while(right<height.length && getHeight(right)<=getHeight(location)
+      && right+1<height.length && getHeight(right+1)<=getHeight(right)){
         right++;
       }
-      
-      if(heights[right]+waters[right]< height[location]+waters[location]){
-        waters[right]=waters[right]+1;
+
+      if(right<heights.length-1 && getHeight(right)<getHeight(location)){
+        waters[right]++;
         continue;
       }
-      
-      waters[location]=waters[location]+1;
+
+      if(right<heights.length && getHeight(location)<getHeight(right) && left>=0 && getHeight(location)<getHeight(left)){
+        waters[location]++;
+        continue;
+      }
     }
-    
+  }
+
+  private int getHeight(int i){
+    return height[i]+waters[i];
   }
   
   public void print(){
@@ -61,6 +71,9 @@ class WaterDrop{
         }
       }
       System.out.println(sb.toString());
+
     }
+
+    System.out.println();
   }
 }

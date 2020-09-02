@@ -7,7 +7,7 @@ class Solution15 {
    input.add(new ArrayList<>(Arrays.asList(3,5,7,9)));
    input.add(new ArrayList<>(Arrays.asList(2,3,8)));
    input.add(new ArrayList<>(Arrays.asList(5,8)));
-   List<Integer> result=plist.getList(input);
+   List<Integer> result=plist.getList2(input);
    for(int i=0;i<result.size();i++){
     System.out.println(result.get(i));
    }
@@ -15,7 +15,58 @@ class Solution15 {
 }
 
 public class pregerenceList {
-    boolean hasLoop=false;
+  public List<Integer> getList2(List<List<Integer>> preferences){
+    HashMap<Integer, List<Integer>> map=new HashMap<>();
+    Map<Integer, Integer> inDegree =new HashMap<>();
+    for(List<Integer> list: preferences){
+      for(int i=0;i<list.size()-1;i++){
+        int cur=list.get(i);
+        if(!map.containsKey(cur)){
+          map.put(cur, new ArrayList<>());
+        }
+
+        if(!inDegree.containsKey(cur)){
+          inDegree.put(cur, 0);
+        }
+
+        if(i+1<list.size()){
+          int next=list.get(i+1);
+          map.get(cur).add(next);
+          if(!inDegree.containsKey(next)){
+            inDegree.put(next, 0);
+          }
+          inDegree.put(next, inDegree.get(next)+1);
+        }
+      }
+    }
+
+    List<Integer> res=new ArrayList<>();
+    Queue<Integer> q=new LinkedList<Integer>();
+    for(int key: inDegree.keySet()){
+      if(inDegree.get(key)==0){
+        q.add(key);
+        res.add(key);
+      }
+    }
+
+    while(q.size()>0){
+      int key=q.poll();
+      if(map.get(key)==null){
+        continue;
+      }
+      for(int next: map.get(key)){
+        inDegree.put(next, inDegree.get(next)-1);
+        if(inDegree.get(next)==0){
+          q.add(next);
+          res.add(next);
+        }
+      }
+    }
+
+    return res;
+  }
+
+  boolean hasLoop=false;
   @SuppressWarnings( "deprecation" )
   public List<Integer> getList(List<List<Integer>> preferences){
     Map<Integer, List<Integer>> map=new HashMap<>();
@@ -64,7 +115,6 @@ public class pregerenceList {
     for(int i=0;i<nextNode.size();i++){
       getResult(result, visiting, visited, map, nextNode.get(i));
     }
-    
     
     visiting.remove(node);
     visited.add(node);

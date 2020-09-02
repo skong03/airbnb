@@ -1,9 +1,4 @@
 
-/*
-123
-456
-870
-*/
 class Solution9 {
  public static void main(String[] args){
    MaximumNights mn=new MaximumNights();
@@ -18,40 +13,18 @@ class Solution9 {
 
 class MaximumNights{
   public int getMaxNights(int[] nights){
-    int max=0;
-    for(int i:nights){
-      max+=i;
-    }
-    
-    int[] dp=new int[max+1];
-    int index=0;
+    int[] dp=new int[nights.length];
     for(int i=0;i<nights.length;i++){
-      index+=nights[i];
-      dp[index]=nights[i];
+        int max1=0;
+        if(i-1>=0){
+            max1=dp[i-1];
+        }
+        int max2=nights[i];
+        if(i-2>=0){
+            max2+=dp[i-2];
+        }
+        dp[i]=Math.max(max1, max2);
     }
-    
-    for(int i=1;i<dp.length;i++){
-      this.print(dp);
-    System.out.println();
-      if(dp[i]==0){
-        dp[i]=dp[i-1];
-        continue;
-      }
-      
-      int cur=dp[i];
-      if(i-dp[i]-1>=0){
-        cur+=dp[i-dp[i]-1];
-      }
-      
-      dp[i]=Math.max(dp[i-1], cur);
-    }
-    
-    return dp[dp.length-1];
-  }
-  
-  private void print(int[] c){
-    for(int i=0;i<c.length;i++){
-      System.out.print(c[i]+",");
-    }
+    return dp[nights.length-1];
   }
 }
