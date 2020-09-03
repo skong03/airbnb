@@ -41,7 +41,8 @@ class WaterDrop{
         continue;
       }
 
-      if(right<heights.length && getHeight(location)<getHeight(right) && left>=0 && getHeight(location)<getHeight(left)){
+      if(right<heights.length && getHeight(location)<getHeight(right) 
+      && left>=0 && getHeight(location)<getHeight(left)){
         waters[location]++;
         continue;
       }
