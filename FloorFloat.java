@@ -75,6 +75,7 @@ public class FloorFloat {
         }
       }
       
+      @SuppressWarnings("unused")
       private <T> void print(Collection<T> c){
         for(T t: c){
           System.out.println(t);

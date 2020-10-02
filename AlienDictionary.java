@@ -53,6 +53,7 @@ public class AlienDictionary {
             }
         }
         
+        // exist circle, so some c counts can never go to 0. 
         if (sb.length() < counts.size()) {
             return "";
         }

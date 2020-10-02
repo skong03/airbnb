@@ -8,7 +8,6 @@ class Solution7 {
       wd.addWater(height, i, 1);
       wd.print();
     }
-    
   }
 }
 
@@ -19,12 +18,15 @@ class WaterDrop{
     this.height=heights;
     waters =new int[height.length];
     for(int i=0;i<water; i++){
+      
       int left=location-1;
+      // if left is valid, and we should move water to left. 
       while(left>=0 && getHeight(left)<=getHeight(location) 
       && left-1>=0 && getHeight(left-1)<=getHeight(left)){
         left--;
       }
 
+      //>0 consider no wall, >=0 mean allow wall. 
       if(left>0 && getHeight(left)<getHeight(location)){
         waters[left]++;
         continue;
@@ -41,6 +43,7 @@ class WaterDrop{
         continue;
       }
 
+      // for no wall, if location small than both peek, add water. 
       if(right<heights.length && getHeight(location)<getHeight(right) 
       && left>=0 && getHeight(location)<getHeight(left)){
         waters[location]++;
@@ -59,7 +62,6 @@ class WaterDrop{
       max=Math.max(max, height[i]+waters[i]);
     }
     
-    
     for(int i=max;i>=0;i--){
       StringBuilder sb=new StringBuilder();
       for(int j=0;j<height.length;j++){
@@ -72,7 +74,6 @@ class WaterDrop{
         }
       }
       System.out.println(sb.toString());
-
     }
 
     System.out.println();

@@ -41,6 +41,7 @@ class QueueWithArray<T> implements SimpleQueue<T> {
     int tail=0;
     int size=0;
 
+    // size must great than 1
     public QueueWithArray(int arraySize) {
         current = new Object[arraySize];
         tailArray=current;
@@ -61,6 +62,7 @@ class QueueWithArray<T> implements SimpleQueue<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T peek() {
         if(size<=0){
             return null;
@@ -69,6 +71,7 @@ class QueueWithArray<T> implements SimpleQueue<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T pop() {
         if(size<=0){
             return null;
